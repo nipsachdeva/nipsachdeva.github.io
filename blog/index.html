@@ -9,7 +9,10 @@
 
 <section>
   <h1>Writing</h1>
-  <p>Thoughts on data science, engineering, automation, and real-world systems.</p>
+  <p>
+    Practical writing on data science, data engineering,
+    automation, and building real-world systems.
+  </p>
 
   <div id="posts"></div>
 </section>
@@ -19,13 +22,13 @@ fetch("./posts/posts.json")
   .then(res => res.json())
   .then(posts => {
     const container = document.getElementById("posts");
-    posts.forEach(p => {
+    posts.reverse().forEach(p => {
       const el = document.createElement("div");
       el.className = "card";
       el.innerHTML = `
         <h3>${p.title}</h3>
         <p>${p.excerpt}</p>
-        <a href="${p.url}">Read more →</a>
+        <a href="${p.url}">Read →</a>
       `;
       container.appendChild(el);
     });
