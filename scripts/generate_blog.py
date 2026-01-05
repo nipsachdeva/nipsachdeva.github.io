@@ -78,29 +78,26 @@ post_entry = {
     "url": f"./posts/{filename}"
 }
 
-# posts = []
-# if os.path.exists(POSTS_INDEX):
-#     with open(POSTS_INDEX, "r", encoding="utf-8") as f:
-#         posts = json.load(f)
-
-# posts.append(post_entry)
-
-
-# posts = []
+posts = []
 
 if os.path.exists(POSTS_INDEX):
     try:
         with open(POSTS_INDEX, "r", encoding="utf-8") as f:
-            content = f.read().strip()
-            if content:
-                posts = json.loads(content)
-            else:
-                posts = []
-    except json.JSONDecodeError:
+            raw = f.read().strip()
+            if raw:
+                posts = json.loads(raw)
+    except Exception:
         posts = []
 
+posts.append({
+    "title": title,
+    "date": date_str,
+    "excerpt": "Practical lessons from building real-world data systems.",
+    "url": f"./posts/{filename}"
+})
 
 with open(POSTS_INDEX, "w", encoding="utf-8") as f:
     json.dump(posts, f, indent=2)
+
 
 print("✅ Blog post generated:", filepath)
