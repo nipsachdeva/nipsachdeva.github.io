@@ -78,12 +78,27 @@ post_entry = {
     "url": f"./posts/{filename}"
 }
 
-posts = []
-if os.path.exists(POSTS_INDEX):
-    with open(POSTS_INDEX, "r", encoding="utf-8") as f:
-        posts = json.load(f)
+# posts = []
+# if os.path.exists(POSTS_INDEX):
+#     with open(POSTS_INDEX, "r", encoding="utf-8") as f:
+#         posts = json.load(f)
 
-posts.append(post_entry)
+# posts.append(post_entry)
+
+
+# posts = []
+
+if os.path.exists(POSTS_INDEX):
+    try:
+        with open(POSTS_INDEX, "r", encoding="utf-8") as f:
+            content = f.read().strip()
+            if content:
+                posts = json.loads(content)
+            else:
+                posts = []
+    except json.JSONDecodeError:
+        posts = []
+
 
 with open(POSTS_INDEX, "w", encoding="utf-8") as f:
     json.dump(posts, f, indent=2)
