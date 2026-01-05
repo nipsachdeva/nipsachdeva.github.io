@@ -22,7 +22,7 @@ const file = params.get("file");
 if (!file) {
   document.getElementById("content").innerHTML = "<p>Post not found.</p>";
 } else {
-  fetch("./posts/" + file)
+  fetch("./blog/posts/" + file)
     .then(res => res.text())
     .then(md => {
       const clean = md.replace(/^---[\\s\\S]*?---/, "");
