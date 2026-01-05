@@ -229,3 +229,36 @@ footer {
 .delay-1 {
   animation-delay: 0.15s;
 }
+
+.blog {
+  max-width: 800px;
+  margin: 80px auto;
+  padding: 0 20px;
+}
+
+.blog .subtitle {
+  color: #666;
+  margin-bottom: 40px;
+}
+
+.blog-card {
+  padding: 24px;
+  margin-bottom: 24px;
+  border-radius: 12px;
+  background: #f7f7f7;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.blog-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+}
+
+.blog-card h3 {
+  margin: 0 0 8px 0;
+}
+
+.blog-card a {
+  text-decoration: none;
+  font-weight: 600;
+}
