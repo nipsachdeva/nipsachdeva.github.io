@@ -93,8 +93,9 @@ posts.append({
     "title": title,
     "date": date_str,
     "excerpt": "Practical lessons from building real-world data systems.",
-    "url": f"./posts/{filename}"
+    "url": filename
 })
+
 
 with open(POSTS_INDEX, "w", encoding="utf-8") as f:
     json.dump(posts, f, indent=2)
