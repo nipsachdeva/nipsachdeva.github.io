@@ -12,7 +12,7 @@
 <body>
 
 <section>
-  <h1>Writing</h1>
+  <h1>Blog Writing</h1>
   <p>
     Practical thoughts on data science, data engineering,
     automation, and building systems that actually work in production.
@@ -22,24 +22,39 @@
 </section>
 
 <script>
-fetch("./posts/posts.json")
-  .then(res => res.json())
-  .then(posts => {
-    const container = document.getElementById("posts");
-    posts
-      .sort((a, b) => new Date(b.date) - new Date(a.date))
-      .forEach(p => {
-        const el = document.createElement("div");
-        el.className = "card";
-        el.innerHTML = `
-          <h3>${p.title}</h3>
-          <p>${p.excerpt}</p>
-          <a href="post.html?file=${p.url.split('/').pop()}">Read →</a>
-        `;
-        container.appendChild(el);
+    fetch("/blog/posts/posts.json")
+      .then(res => {
+        if (!res.ok) throw new Error("Posts not found");
+        return res.json();
+      })
+      .then(posts => {
+        const container = document.getElementById("posts");
+    
+        if (!posts.length) {
+          container.innerHTML = "<p>No posts yet.</p>";
+          return;
+        }
+    
+        posts
+          .sort((a, b) => new Date(b.date) - new Date(a.date))
+          .forEach(p => {
+            const el = document.createElement("div");
+            el.className = "blog-card";
+            el.innerHTML = `
+              <h3>${p.title}</h3>
+              <p>${p.excerpt}</p>
+              <a href="/blog/post.html?file=${p.url.split('/').pop()}">Read →</a>
+            `;
+            container.appendChild(el);
+          });
+      })
+      .catch(err => {
+        document.getElementById("posts").innerHTML =
+          "<p>Blog posts failed to load.</p>";
+        console.error(err);
       });
-  });
-</script>
+    </script>
+    
 
 </body>
 </html>
