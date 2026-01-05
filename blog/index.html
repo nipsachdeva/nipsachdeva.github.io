@@ -6,6 +6,9 @@
   <meta name="description" content="Writing on data science, data engineering, automation, and real-world systems." />
   <link rel="stylesheet" href="../styles.css" />
 </head>
+
+<script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+
 <body>
 
 <section>
@@ -31,7 +34,7 @@ fetch("./posts/posts.json")
         el.innerHTML = `
           <h3>${p.title}</h3>
           <p>${p.excerpt}</p>
-          <a href="${p.url}">Read →</a>
+          <a href="post.html?file=${p.url.split('/').pop()}">Read →</a>
         `;
         container.appendChild(el);
       });

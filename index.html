@@ -183,6 +183,34 @@
   <p><strong>MSc Data Science</strong> — University of Bristol (2020–2021)</p>
   <p><strong>BTech ECE</strong> — GGSIPU, New Delhi (2012–2016)</p>
 </section>
+<section id="writing">
+  <h2>Writing</h2>
+  <p>Thoughts on data, software, automation, and building systems in production.</p>
+  <div id="latest-posts"></div>
+  <a href="/blog/">View all posts →</a>
+</section>
+
+<script>
+fetch("/blog/posts/posts.json")
+  .then(res => res.json())
+  .then(posts => {
+    const container = document.getElementById("latest-posts");
+    posts
+      .sort((a, b) => new Date(b.date) - new Date(a.date))
+      .slice(0, 2)
+      .forEach(p => {
+        const el = document.createElement("div");
+        el.className = "blog-card";
+        el.innerHTML = `
+          <h3>${p.title}</h3>
+          <p>${p.excerpt}</p>
+          <a href="/blog/post.html?file=${p.url.split('/').pop()}">Read →</a>
+        `;
+        container.appendChild(el);
+      });
+  });
+</script>
+
 
 <section>
   <h2>Newsletter</h2>

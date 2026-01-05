@@ -262,3 +262,53 @@ footer {
   text-decoration: none;
   font-weight: 600;
 }
+.blog-post {
+  max-width: 800px;
+  margin: 80px auto;
+  padding: 0 20px;
+}
+
+.blog-post h1,
+.blog-post h2,
+.blog-post h3 {
+  margin-top: 32px;
+}
+
+.blog-post p {
+  line-height: 1.7;
+  margin: 16px 0;
+}
+
+.blog-post a {
+  text-decoration: none;
+  font-weight: 600;
+}
+
+.blog-post code {
+  background: #f2f2f2;
+  padding: 2px 6px;
+  border-radius: 4px;
+}
+
+.newsletter-form {
+  display: flex;
+  gap: 12px;
+  max-width: 400px;
+}
+
+.newsletter-form input {
+  flex: 1;
+  padding: 12px;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+}
+
+.newsletter-form button {
+  padding: 12px 18px;
+  border-radius: 8px;
+  border: none;
+  background: black;
+  color: white;
+  cursor: pointer;
+}
+
