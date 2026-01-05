@@ -1,26 +1,35 @@
-name: Weekly Blog & Newsletter
+name: Weekly Blog Generator
 
 on:
   schedule:
-    - cron: "0 8 * * 1" # Monday 8am
+    - cron: "0 9 * * 1" # Every Monday 09:00 UTC
   workflow_dispatch:
 
 jobs:
   generate:
     runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v3
 
-      - name: Generate post
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v3
+
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: "3.11"
+
+      - name: Install OpenAI SDK
+        run: pip install openai
+
+      - name: Generate blog post
         env:
           OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
-        run: |
-          python scripts/generate_blog.py
+        run: python scripts/generate_blog.py
 
-      - name: Commit post
+      - name: Commit and push
         run: |
           git config user.name "blog-bot"
-          git config user.email "blog@github.com"
+          git config user.email "blog-bot@github.com"
           git add .
-          git commit -m "Weekly blog post"
+          git commit -m "Automated weekly blog post" || echo "No changes"
           git push
