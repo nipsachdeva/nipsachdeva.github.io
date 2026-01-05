@@ -1,43 +1,91 @@
-import datetime, json, os
+import os
+import json
+import datetime
 from openai import OpenAI
+
+# ---------- CONFIG ----------
+BLOG_DIR = "blog/posts"
+POSTS_INDEX = f"{BLOG_DIR}/posts.json"
 
 client = OpenAI(api_key=os.getenv("OPENAI_API_KEY"))
 
-today = datetime.date.today().isoformat()
-slug = f"{today}-real-world-data-systems"
+today = datetime.date.today()
+date_str = today.isoformat()
 
+slug = f"{date_str}-real-world-data-systems"
+filename = f"{slug}.md"
+filepath = f"{BLOG_DIR}/{filename}"
+
+# ---------- PROMPT ----------
 prompt = f"""
 You are Nipun Sachdeva, a senior data practitioner.
 
 Write a 900–1200 word blog post.
-Audience: data scientists, engineers, tech leaders.
-Tone: practical, opinionated, business-aware.
-Topics: forecasting, data pipelines, automation, real-world tradeoffs.
 
-Include:
+Audience:
+- Data scientists
+- Data engineers
+- Engineering leaders
+
+Tone:
+- Practical
+- Opinionated
+- Business-aware
+- No buzzwords
+
+Topics (choose one naturally):
+- Forecasting in real-world supply chains
+- Data engineering tradeoffs
+- Automation and RPA in production
+- Why most data projects fail operationally
+
+Structure:
 - Strong opening opinion
-- Real examples
+- Real examples from industry
 - Clear takeaways
 """
 
-resp = client.chat.completions.create(
+# ---------- GENERATE ----------
+response = client.chat.completions.create(
     model="gpt-4o-mini",
-    messages=[{"role": "user", "content": prompt}]
+    messages=[{"role": "user", "content": prompt}],
 )
 
-content = resp.choices[0].message.content
+content = response.choices[0].message.content.strip()
 
-post = f"""---
-title: Real-World Lessons from Production Data Systems
-date: {today}
-excerpt: Why building data systems is more about decisions than algorithms.
+title = content.split("\n")[0].replace("#", "").strip()
+
+# ---------- WRITE MARKDOWN ----------
+markdown = f"""---
+title: {title}
+date: {date_str}
+excerpt: Practical lessons from building and operating real-world data systems.
 ---
 
 {content}
 """
 
-path = f"blog/posts/{slug}.md"
-with open(path, "w") as f:
-    f.write(post)
+os.makedirs(BLOG_DIR, exist_ok=True)
 
-print("Created:", path)
+with open(filepath, "w", encoding="utf-8") as f:
+    f.write(markdown)
+
+# ---------- UPDATE posts.json ----------
+post_entry = {
+    "title": title,
+    "date": date_str,
+    "excerpt": "Practical lessons from building and operating real-world data systems.",
+    "url": f"./posts/{filename}"
+}
+
+posts = []
+if os.path.exists(POSTS_INDEX):
+    with open(POSTS_INDEX, "r", encoding="utf-8") as f:
+        posts = json.load(f)
+
+posts.append(post_entry)
+
+with open(POSTS_INDEX, "w", encoding="utf-8") as f:
+    json.dump(posts, f, indent=2)
+
+print("✅ Blog post generated:", filepath)

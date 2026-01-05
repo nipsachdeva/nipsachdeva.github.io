@@ -3,6 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <title>Blog | Nipun Sachdeva</title>
+  <meta name="description" content="Writing on data science, data engineering, automation, and real-world systems." />
   <link rel="stylesheet" href="../styles.css" />
 </head>
 <body>
@@ -10,8 +11,8 @@
 <section>
   <h1>Writing</h1>
   <p>
-    Practical writing on data science, data engineering,
-    automation, and building real-world systems.
+    Practical thoughts on data science, data engineering,
+    automation, and building systems that actually work in production.
   </p>
 
   <div id="posts"></div>
@@ -22,16 +23,18 @@ fetch("./posts/posts.json")
   .then(res => res.json())
   .then(posts => {
     const container = document.getElementById("posts");
-    posts.reverse().forEach(p => {
-      const el = document.createElement("div");
-      el.className = "card";
-      el.innerHTML = `
-        <h3>${p.title}</h3>
-        <p>${p.excerpt}</p>
-        <a href="${p.url}">Read →</a>
-      `;
-      container.appendChild(el);
-    });
+    posts
+      .sort((a, b) => new Date(b.date) - new Date(a.date))
+      .forEach(p => {
+        const el = document.createElement("div");
+        el.className = "card";
+        el.innerHTML = `
+          <h3>${p.title}</h3>
+          <p>${p.excerpt}</p>
+          <a href="${p.url}">Read →</a>
+        `;
+        container.appendChild(el);
+      });
   });
 </script>
 
