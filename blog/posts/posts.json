@@ -1,9 +1,14 @@
 [
-    {
-      "title": "Real-World Data Systems: Lessons from Production",
-      "date": "2026-01-05",
-      "excerpt": "Practical lessons from building real-world data systems.",
-      "url": "2026-01-05-real-world-data-systems.md"
-    }
-  ]
-  
+  {
+    "title": "Real-World Data Systems: Lessons from Production",
+    "date": "2026-01-05",
+    "excerpt": "Practical lessons from building real-world data systems.",
+    "url": "2026-01-05-real-world-data-systems.md"
+  },
+  {
+    "title": "Why Most Data Projects Fail Operationally: A Call for Realism in Implementation",
+    "date": "2026-01-12",
+    "excerpt": "Practical lessons from building real-world data systems.",
+    "url": "2026-01-12-real-world-data-systems.md"
+  }
+]
