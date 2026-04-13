@@ -82,5 +82,11 @@
     "date": "2026-04-06",
     "excerpt": "Practical lessons from building real-world data systems.",
     "url": "2026-04-06-real-world-data-systems.md"
+  },
+  {
+    "title": "Why Most Data Projects Fail Operationally: An Unpacking of Common Pitfalls",
+    "date": "2026-04-13",
+    "excerpt": "Practical lessons from building real-world data systems.",
+    "url": "2026-04-13-real-world-data-systems.md"
   }
 ]
